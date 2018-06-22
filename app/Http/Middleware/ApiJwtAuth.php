@@ -5,9 +5,20 @@ namespace App\Http\Middleware;
 use Closure;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\JWTAuth;
 
 class ApiJwtAuth
 {
+    protected $auth;
+    /**
+     * Create a new BaseMiddleware instance.
+     *
+     * @param \Tymon\JWTAuth\JWTAuth  $auth
+     */
+    public function __construct(JWTAuth $auth)
+    {
+        $this->auth = $auth;
+    }
     /**
      * Handle an incoming request.
      *

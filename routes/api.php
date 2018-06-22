@@ -17,5 +17,7 @@ Route::group(['namespace' => 'api' , 'middleware' => 'cors'], function () {
     Route::post('login', 'UserController@getToken');// 获取token
     Route::group(['middleware' => 'api.jwt.auth'], function () {
         Route::get('me', 'UserController@me');  // 获取用户详情
+        Route::get('menu', 'MenuController@me');  // 获取用户详情
+        Route::get('menu/parent', 'MenuController@pMenu');  // 获取用户详情
     });
 });

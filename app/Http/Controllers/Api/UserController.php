@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     public function getToken(Request $request)
     {
@@ -17,22 +16,22 @@ class UserController extends Controller
         if (!$token = JWTAuth::attempt($request->all())) {
             return response(['error' => 'Account or password error.'], 400);
         }
+
         return $this->setAuthenticationHeader($token);
     }
 
     public function me(Request $request)
     {
-
         $user = $request->user();
 
-        return response()->json(['success' => true, 'message' => $user]);
+        return $this->success($user);
     }
 
     protected function setAuthenticationHeader($token = null)
     {
         $token = $token ?: $this->auth->refresh();
-
-        return response()->json(['success' => true], 200)->header('Authorization', 'Bearer ' . $token);//注意'Bearer '这里有一个空格
+        return $this->respond([],['Authorization'=>'Bearer ' . $token]);
+//        return response()->json([], 200)->header('Authorization', 'Bearer ' . $token);//注意'Bearer '这里有一个空格
     }
 
 }
