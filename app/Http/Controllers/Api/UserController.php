@@ -30,8 +30,8 @@ class UserController extends ApiController
     protected function setAuthenticationHeader($token = null)
     {
         $token = $token ?: $this->auth->refresh();
-        return $this->respond([],['Authorization'=>'Bearer ' . $token]);
-//        return response()->json([], 200)->header('Authorization', 'Bearer ' . $token);//注意'Bearer '这里有一个空格
+        return response()->json(['success' => true], 200)->header('Authorization', 'Bearer ' . $token);//注意'Bearer '这里有一个空格
+
     }
 
 }

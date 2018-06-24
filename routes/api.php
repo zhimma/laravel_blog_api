@@ -19,5 +19,6 @@ Route::group(['namespace' => 'api' , 'middleware' => 'cors'], function () {
         Route::get('me', 'UserController@me');  // 获取用户详情
         Route::get('menu', 'MenuController@me');  // 获取用户详情
         Route::get('menu/parent', 'MenuController@pMenu');  // 获取用户详情
+        Route::resource('menu', 'MenuController');
     });
 });

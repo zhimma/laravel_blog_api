@@ -25,10 +25,9 @@ class MenuController extends ApiController
      */
     public function pMenu()
     {
-        $menu = Menu::where('parent_id', 5)->get();
+        $menu = Menu::where('parent_id', 0)->get();
 
-        $menu = array_merge($menu->toArray(), ['name' => '一级菜单', 'parent_id' => 0]);
-
+        $menu = array_merge($menu->toArray(), [['name' => '一级菜单', 'parent_id' => 0]]);
         return $this->success($menu);
     }
 
@@ -39,7 +38,7 @@ class MenuController extends ApiController
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -51,7 +50,10 @@ class MenuController extends ApiController
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $res = Menu::create($request->all());
+        if($res){
+            return $this->success([]);
+        }
     }
 
     /**
