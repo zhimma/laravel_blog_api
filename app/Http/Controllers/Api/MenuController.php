@@ -14,7 +14,9 @@ class MenuController extends ApiController
      */
     public function index()
     {
-
+        $menus = Menu::all();
+        $menuData = list_to_tree_key($menus->toArray() ,'id','parent_id');
+        return $this->success($menuData);
     }
 
     /**
@@ -27,7 +29,7 @@ class MenuController extends ApiController
     {
         $menu = Menu::where('parent_id', 0)->get();
 
-        $menu = array_merge($menu->toArray(), [['name' => '一级菜单', 'parent_id' => 0]]);
+        $menu = array_merge($menu->toArray(), [['name' => '一级菜单', 'id' => 0]]);
         return $this->success($menu);
     }
 
