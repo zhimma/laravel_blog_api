@@ -22,6 +22,8 @@ class MenusTableSeeder extends Seeder
             'parent_id' => '1',
             'name'      => '菜单管理',
             'url'       => '/menu',
+            'component' => 'menuPage',
+            'alias'     => 'name',
             'icon'      => 'fa',
             'status'    => 1,
         ]);

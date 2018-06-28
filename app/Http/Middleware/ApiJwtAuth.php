@@ -45,6 +45,6 @@ class ApiJwtAuth
     }
     protected function respond($error, $status)
     {
-        return response()->json(['error' => $error], $status);
+        return response()->json(['error' => $error , 'status_code' => $status ], $status);
     }
 }

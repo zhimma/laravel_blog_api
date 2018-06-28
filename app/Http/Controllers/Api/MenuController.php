@@ -14,10 +14,12 @@ class MenuController extends ApiController
      */
     public function index()
     {
-        $menus = Menu::all();
-        $menuData = list_to_tree_key($menus->toArray() ,'id','parent_id');
+        $model = new Menu();
+        $menuData = $model->getMenuTree();
+
         return $this->success($menuData);
     }
+
 
     /**
      * 返回一级菜单
@@ -30,6 +32,7 @@ class MenuController extends ApiController
         $menu = Menu::where('parent_id', 0)->get();
 
         $menu = array_merge($menu->toArray(), [['name' => '一级菜单', 'id' => 0]]);
+
         return $this->success($menu);
     }
 
@@ -52,9 +55,10 @@ class MenuController extends ApiController
      */
     public function store(Request $request)
     {
-        $res = Menu::create($request->all());
-        if($res){
-            return $this->success([]);
+        $model = new Menu();
+        $res = $model::create($request->all());
+        if ($res) {
+            return $this->success($menuData = $model->getMenuTree());
         }
     }
 
